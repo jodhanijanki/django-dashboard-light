@@ -1,146 +1,89 @@
 {% extends 'layouts/base.html' %}
 
+{% load static %}
+{% load humanize %}
+
 {% block title %} UI Tables {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card strpied-tabled-with-hover">
-                        <div class="card-header ">
-                            <h4 class="card-title">Striped Table with Hover</h4>
-                            <p class="card-category">Here is a subtitle for this table</p>
-                        </div>
-                        <div class="card-body table-full-width table-responsive">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Salary</th>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Dakota Rice</td>
-                                        <td>$36,738</td>
-                                        <td>Niger</td>
-                                        <td>Oud-Turnhout</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Minerva Hooper</td>
-                                        <td>$23,789</td>
-                                        <td>Curaçao</td>
-                                        <td>Sinaai-Waas</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sage Rodriguez</td>
-                                        <td>$56,142</td>
-                                        <td>Netherlands</td>
-                                        <td>Baileux</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Philip Chaney</td>
-                                        <td>$38,735</td>
-                                        <td>Korea, South</td>
-                                        <td>Overland Park</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Doris Greene</td>
-                                        <td>$63,542</td>
-                                        <td>Malawi</td>
-                                        <td>Feldkirchen in Kärnten</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Mason Porter</td>
-                                        <td>$78,615</td>
-                                        <td>Chile</td>
-                                        <td>Gloucester</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card card-plain table-plain-bg">
-                        <div class="card-header ">
-                            <h4 class="card-title">Table on Plain Background</h4>
-                            <p class="card-category">Here is a subtitle for this table</p>
-                        </div>
-                        <div class="card-body table-full-width table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Salary</th>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Dakota Rice</td>
-                                        <td>$36,738</td>
-                                        <td>Niger</td>
-                                        <td>Oud-Turnhout</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Minerva Hooper</td>
-                                        <td>$23,789</td>
-                                        <td>Curaçao</td>
-                                        <td>Sinaai-Waas</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sage Rodriguez</td>
-                                        <td>$56,142</td>
-                                        <td>Netherlands</td>
-                                        <td>Baileux</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Philip Chaney</td>
-                                        <td>$38,735</td>
-                                        <td>Korea, South</td>
-                                        <td>Overland Park</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Doris Greene</td>
-                                        <td>$63,542</td>
-                                        <td>Malawi</td>
-                                        <td>Feldkirchen in Kärnten</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Mason Porter</td>
-                                        <td>$78,615</td>
-                                        <td>Chile</td>
-                                        <td>Gloucester</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 m-auto">
+                <div class="card w-50 m-auto" >
+                    <div class="card-header">
+                        <h4 class="card-title text-center">Import Bank Statement</h4>
+                        <form  method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            
+                            <div class="text-center">
+                            {% if success == 'Already added' %}
+                               <br><h5 class="text-success">{{success}}</h5>
+                            {% else %}
+                               <br><h5 class="text-danger">{{success}}</h5>
+                            {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <h5 class="col-md-5">Bank name</h5>
+                                <input type="text" class="form-control form-control-sm col-md-6" placeholder="Enter Bankname" name='bankname'>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" title="Upload excel file" name="excel_file" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-info btn-sm" type="submit" value="Upload" >
+<!--                                 style="border: 1px solid green; padding:3px; border-radius: 2px; cursor: pointer;"> -->
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 m-auto">      
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-light table-bordered table-hover text-center">
+                                        <caption>Latest five bank statement transctions</caption>
+                                        <!-- <thead> -->
+                                            <tr class="table-dark text-center">
+                                                <th class="text-center"scope="col">Date</th>
+                                                <th class="text-center" scope="col">Narration</th>
+                                                <th class="text-center"scope="col">Ref_no</th>
+                                                <!-- <th>Value_dt</th> -->
+                                                <th class="text-center"scope="col">Withdr_amt</th>
+                                                <th class="text-center"scope="col">Deposite_amt</th>
+                                                <th class="text-center"scope="col">Closing_bal</th>
+                                                <th class="text-center"scope="col">Category</th>
+                                            </tr>
+                                        <!-- </thead> -->
+                                        {% for row in queryset %}
+                                        <!-- <tbody> -->
+                                        <tr class="table-info">
+                                            <td scope="row">{{row.date |date:"j/n/Y"}}</td>
+                                            <td scope="row">{{row.narration|truncatewords:2}}</td>
+                                            <td scope="row">{{row.ref_no}}</td>
+                                            <!-- <td>{{row.value_dt| length}}</td> -->
+                                            <td scope="row">{{row.withdrawal_amt|intcomma}}</td>
+                                            <td scope="row">{{row.deposite_amt|intcomma}}</td>
+                                            <td scope="row">{{row.closing_balance|intcomma}}</td>
+                                            <td scope="row">{{row.category}}</td> 
+                                                          
+                                        </tr>
+                                        <!-- </tbody> -->
+                                        {% endfor %} 
+                                    </table>
+                                </div>
+            </div>
+        </div>
     </div>
+</div>
+            
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
+ <!-- Specific JS goes HERE -->
 {% block javascripts %}{% endblock javascripts %}

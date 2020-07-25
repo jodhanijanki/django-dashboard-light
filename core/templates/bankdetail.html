@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} User Profile {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="col-md-6 m-auto">
+            <div class="card p-2">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Bank Details</h4>
+                </div>
+                <div class="card-body m-auto">
+                    <form action="/bankdetails" method="post">
+                        {% csrf_token %}
+                        <input type="text" class='mb-2'name="bank_name" placeholder="Bank Name" value="{{company_user.bank_name}}"><br>
+                        <input type="text" class='mb-2' name="branch_name" placeholder="Branch Name" value="{{company_user.branch_name}}"><br>
+                        <input type="text" class='mb-2' name="ifsc_code" placeholder="IFSC Code" value="{{company_user.ifsc_code}}"><br>
+                        <input type="text" class='mb-3' name="account_number" placeholder="Account Number" value="{{company_user.account_number}}"><br>
+                        <label for="business_size">Business Size:</label>
+                        <select name="account_type" id="accounttype">
+                            <option value="2">Saving Account</option>
+                            <option value="3">Current Account</option>
+                            <option value="4">Overdraft Account</option>
+                        </select><br>
+                        <input type="submit"class='text-center ml-5 mt-2'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}

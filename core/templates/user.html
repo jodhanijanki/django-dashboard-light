@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-
+{% load static %}
 {% block title %} User Profile {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
@@ -7,135 +7,261 @@
 
 {% block content %}
 
-<div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Edit Profile</h4>
-                                </div>
-                                <div class="card-body">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-5 pr-1">
-                                                <div class="form-group">
-                                                    <label>User ID (disabled)</label>
-                                                    <input type="text" class="form-control" disabled="" value="{{ request.user.id }}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 px-1">
-                                                <div class="form-group">
-                                                    <label>Username</label>
-                                                    <input type="text" class="form-control" value="{{ request.user.username }}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 pl-1">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Email address</label>
-                                                    <input type="email" class="form-control" value="{{ request.user.email }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 pr-1">
-                                                <div class="form-group">
-                                                    <label>First Name</label>
-                                                    <input type="text" class="form-control" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 pl-1">
-                                                <div class="form-group">
-                                                    <label>Last Name</label>
-                                                    <input type="text" class="form-control" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Address</label>
-                                                    <input type="text" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4 pr-1">
-                                                <div class="form-group">
-                                                    <label>City</label>
-                                                    <input type="text" class="form-control" placeholder="City" value="Mike">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 px-1">
-                                                <div class="form-group">
-                                                    <label>Country</label>
-                                                    <input type="text" class="form-control" placeholder="Country" value="Andrew">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 pl-1">
-                                                <div class="form-group">
-                                                    <label>Postal Code</label>
-                                                    <input type="number" class="form-control" placeholder="ZIP Code">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>About Me</label>
-                                                    <textarea rows="4" cols="80" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                        <div class="clearfix"></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-user">
-                                <div class="card-image">
-                                    <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="...">
-                                </div>
-                                <div class="card-body">
-                                    <div class="author">
-                                        <a href="#">
-                                            <img class="avatar border-gray" src="/static/assets/img/faces/face-3.jpg" alt="...">
-                                            <h5 class="title">
-                                                {{ request.user.username }}
-                                            </h5>
-                                        </a>
-                                        <p class="description">
-                                            {{ request.user.email }}
-                                        </p>
+<div class="content ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 m-auto">
+                <div class="card p-2">
+                    <div class="card-header">
+                        <h4 class="card-title">Complete Profile<a style="float: right; font-size: 20;" href="{% url 'bankdetails'%}">Add Bank Detail</a></h4>
+                        
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-3 pr-1">
+                                    <div class="form-group">
+                                        <label>User ID (disabled)</label>
+                                        <input type="text" class="form-control" disabled=""
+                                               value="{{ request.user.id }}">
                                     </div>
-                                    <p class="description text-center">
-                                        "Lamborghini Mercy
-                                        <br> Your chick she so thirsty
-                                        <br> I'm in that two seat Lambo"
-                                    </p>
                                 </div>
-                                <hr>
-                                <div class="button-container mr-auto ml-auto">
-                                    <button href="#" class="btn btn-simple btn-link btn-icon">
-                                        <i class="fa fa-facebook-square"></i>
-                                    </button>
-                                    <button href="#" class="btn btn-simple btn-link btn-icon">
-                                        <i class="fa fa-twitter"></i>
-                                    </button>
-                                    <button href="#" class="btn btn-simple btn-link btn-icon">
-                                        <i class="fa fa-google-plus-square"></i>
-                                    </button>
+                                <div class="col-md-3 px-1">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" disabled="" class="form-control" value="{{ request.user.username }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pl-2">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email address</label>
+                                        <input type="email" disabled="" class="form-control" value="{{ request.user.email }}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-2">
+                                    <div class="form-group">
+                                        <label for ='first_name'>First Name</label>
+                                        <input id='first_name' name="first_name" type="text" class="form-control"
+                                               value={{individual_user.first_name}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pl-1">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input name="last_name" type="text" class="form-control"
+                                               value={{individual_user.last_name}}>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input name="address" type="text" class="form-control"
+                                               placeholder="Home Address" value={{individual_user.address}}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 pr-1">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input name="city" type="text" class="form-control" placeholder="City"
+                                               value={{individual_user.city}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pr-1">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input name="state" type="text" class="form-control" placeholder="State"
+                                               value={{individual_user.state}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pr-1">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input name="country" type="text" class="form-control" placeholder="Country"
+                                               value={{individual_user.country}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>Postal Code</label>
+                                        <input name="pin_code" type="number" class="form-control" placeholder="ZIP Code"
+                                               value={{individual_user.pin_code}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>Brand Name</label>
+                                        <input name="brand_name" type="text" class="form-control"
+                                               placeholder="Brand Name" value={{individual_user.brand_name}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>Logo</label>
+                                        <input name="logo" type="file" class="form-control" placeholder="Logo"
+                                               >{% if individual_user.logo %}
+                                        <img src="/media/{{individual_user.logo}}">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>Starting Year</label>
+                                        <input name="started_in_year" type="date" class="form-control"
+                                               placeholder="Starting Year" value={{individual_user.started_in_year}}>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>Website</label>
+                                        <input name="website_address" type="url" class="form-control"
+                                               placeholder="Website" value={{individual_user.website_address}}>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>Profession Type</label>
+                                        <select  class="form-control" name="profession_type" id="">
+                                            {% if individual_user.profession_type %}
+                                            <option selected='' value=" ">{{individual_user.profession_type}}</option>
+                                            {%else%}
+                                            <option value="----">----</option>
+                                             {% endif %}
+                                            
+                                            <option value='CA'>CA</option>
+                                            <option value="CS">CS</option>
+                                            <option value="Tax_Adviser">Tax Adviser</option>
+                                            <option value="Legal_Adviser">Legal Adviser</option>
+                                            <option value="Analyst">Analyst</option>
+                                            <option value="Business_Adviser">Business Adviser</option>
+                                            <option value="Finance_Adviser">Finance Adviser</option>
+                                            <option value="Diversified">Diversified</option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>SPECIALITY TYPE</label>
+                                        <select  class="form-control" name="speciality_type" id="">
+                                            {% if individual_user.speciality_type %}
+                                            <option selected='' value=" ">{{individual_user.speciality_type}}</option>
+                                            {%else%}
+                                            <option value="----">----</option>
+                                             {% endif %}
+                                            <option value="FMCG">FMCG</option>
+                                            <option value="Manufacturer">Manufacturer</option>
+                                            <option value="Trader">Trader</option>
+                                            <option value="IMPEX">IMPEX</option>
+                                            <option value="Retailer">Retailer</option>
+                                            <option value="IT">IT</option>
+                                            <option value="Diversified">Diversified</option>   
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>BUSINESS CATER</label>
+                                        <select  class="form-control" name="business_cater" id="">
+                                            {% if individual_user.business_cater %}
+                                            <option selected='' value=" ">{{individual_user.business_cater}}</option>
+                                            {%else%}
+                                            <option value="----">----</option>
+                                             {% endif %}
+                                            <option value="Startup">Startup</option>
+                                            <option value="Small">Small</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Large">Large</option>
+                                            <option value="Corporate">Corporate</option>
+                                            <option value="Institution">Institution</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-1">
+                                    <div class="form-group">
+                                        <label>EXPERIENCE</label>
+                                        <select  class="form-control" name="experience" id="">
+                                            {% if individual_user.experience %}
+                                            <option selected='' value=" ">{{individual_user.experience}}</option>
+                                            {%else%}
+                                            <option value="----">----</option>
+                                             {% endif %}
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 p-auto">
+                                        <div class="form-group">
+                                            <label>About Me</label>
+                                            <textarea name="description" rows="1" cols="80" class="form-control"
+                                            placeholder="Here can be your description" value={{individual_user.description}}>
+                                                    </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Submit" class="text-center"></input>
+                                <div class="clearfix"></div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card card-user">
+                    <div class="card-image">
+                        <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
+                             alt="...">
+                    </div>
+                    <div class="card-body">
+                        <div class="author">
+                            <a href="#">
+                                <img class="avatar border-gray" src="/static/assets/img/faces/face-3.jpg" alt="...">
+                                <h5 class="title">
+                                    {{ request.user.username }}
+                                </h5>
+                            </a>
+                            <p class="description">
+                                {{ request.user.email }}
+                            </p>
+                        </div>
+                        <p class="description text-center">
+                            "Lamborghini Mercy
+                            <br> Your chick she so thirsty
+                            <br> I'm in that two seat Lambo"
+                        </p>
+                    </div>
+                    <hr>
+                    <div class="button-container mr-auto ml-auto">
+                        <button href="#" class="btn btn-simple btn-link btn-icon">
+                            <i class="fa fa-facebook-square"></i>
+                        </button>
+                        <button href="#" class="btn btn-simple btn-link btn-icon">
+                            <i class="fa fa-twitter"></i>
+                        </button>
+                        <button href="#" class="btn btn-simple btn-link btn-icon">
+                            <i class="fa fa-google-plus-square"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
+<!-- Specific JS goes HERE -->
 {% block javascripts %}{% endblock javascripts %}
          

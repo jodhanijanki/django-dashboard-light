@@ -1,0 +1,114 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} User Profile {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="col-md-8 m-auto">
+            <div class="card p-2">
+                <div class="card-header">
+                    <h4 class="card-title">Company Profile<a style="float: right; font-size: 20;" href="{% url 'bankdetails'%}">Add Bank Detail</a></h4>
+                </div>
+                <div class="card-body">
+                    <form action="/companyuser" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-3 pr-1">
+                                <div class="form-group">
+                                    <label>User ID (disabled)</label>
+                                    <input type="text" class="form-control" disabled="" value="{{ request.user.id }}">
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 px-1">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" disabled="" value="{{ request.user.username }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 pl-1">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" disabled="" value="{{ request.user.email }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 ml-2 pr-1">
+                                <div class="form-group">
+                                    <input type="text" class="mb-2" name="first_name" placeholder="First Name" value="{{company_user.first_name}}">
+                                    <input type="text" class="mb-2" name="last_name" placeholder="Last Name" value="{{company_user.last_name}}">
+                                    <input type="text" class="mb-2" name="contact_person_name" placeholder="Contact Person" value="{{company_user.contact_person_name}}">
+                                    <input type="text" class="mb-2" name="contact_person_mobile" placeholder="Contact Person Mobile" value="{{company_user.contact_person_mobile}}">
+                                    <input type="text" class="mb-2" name="address" placeholder="Address" value="{{company_user.address}}">
+                                    <input type="text" class="mb-2" name="city" placeholder="City" value="{{company_user.city}}">
+                                    <input type="text" class="mb-2" name="state" placeholder="State" value="{{company_user.state}}">
+                                    <input type="text" class="mb-2" name="country" placeholder="Country" value="{{company_user.country}}">
+                                    <input type="text" class="mb-2" name="pin_code" placeholder="Pin Code" value="{{company_user.pin_code}}">
+                                    <input type="text" class="mb-2" name="brand_name" placeholder="Brand Name" value="{{company_user.brand_name}}">
+                                    <label for="logo">Logo:</label>
+                                    <input type="file" id="img" name="logo" accept="image/*" multiple="" 
+                                           placeholder="Upload Logo" value="{{company_user.logo}}">
+                                    <label for="started_in_year">Year of Starting:</label>
+                                    <input type="date" class="mb-2" name="started_in_year" placeholder="Started Year" value="{{company_user.started_in_year}}">
+                                    <input type="url" class="mb-2" name="website_address" placeholder="Website" value="{{company_user.website_address}}">
+                                    <label for="company_type">Company Type:</label>
+                                    <select name="company_type" id="companytype">
+                                        <option value="1">Partnership </option>
+                                        <option value="2">LLP</option>
+                                        <option value="3">Pvt Ltd</option>
+                                        <option value="4">Ltd</option>
+                                        <option value="5">others</option>
+                                    </select>
+                                    <label for="business_type">Business Type:</label>
+                                    <select name="business_type" id="businesstype">
+                                        <option value="1">FMCG</option>
+                                        <option value="2">Manufacturer</option>
+                                        <option value="3">Trader</option>
+                                        <option value="4">Impex</option>
+                                        <option value="5">Retailer</option>
+                                        <option value="6">IT</option>
+                                        <option value="7">Diversified</option>
+                                    </select><br>
+                                    <label for="business_size">Business Size:</label>
+                                    <select name="business_size" id="businesssize">
+                                        <option value="1">Startup</option>
+                                        <option value="2">Small</option>
+                                        <option value="3">Medium</option>
+                                        <option value="4">Large</option>
+                                        <option value="5">Corporate</option>
+                                        <option value="6">Institution</option>
+                                    </select>
+                                    <input type="number"class="mb-2" name="annual_business_turnover"
+                                           placeholder="Annual Business Turnover" value="{{company_user.annual_business_turnover}}">
+                                    <input type="number"class="mb-2" name="number_of_employees"
+                                           placeholder="Number of Employess" value="{{company_user.number_of_employees}}">
+                                    <input type="number"class="mb-2" name="core_team_members"
+                                           placeholder="Core Team Member" value="{{company_user.core_team_members}}">
+                                    <input type="text"class="mb-2" name="GST_number" placeholder="GST" value="{{company_user.GST_number}}">
+                                    <input type="text"class="mb-2" name="PAN_number" placeholder="PAN" value="{{company_user.PAN_number}}">
+                                    <input type="text" class="mb-2"name="description" placeholder="Description" value="{{company_user.description}}">
+                                    <input type="submit" >
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% for message in messages%}
+    <h3>{{message}}</h3>
+    {% endfor %}
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
